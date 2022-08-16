@@ -29,7 +29,7 @@ public class SampleAppTest {
 
         if (platform.equals("ANDROID")) {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "Android");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PUT_YOUR_DEVICE_NAME");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "emulator-5554");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/ApiDemos-debug.apk");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
@@ -39,10 +39,10 @@ public class SampleAppTest {
             ((AndroidDriver<MobileElement>) driver).startActivity(new Activity("io.appium.android.apis", ".view.TextFields"));
         } else {
             capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, "iOS");
-            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "PUT_YOUR_XCODE_VERSION_HERE");
+            capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "15.2");
             capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, "XCuiTest");
-            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "PUT_YOUR_DEVICE_NAME_HERE");
-            capabilities.setCapability(MobileCapabilityType.UDID, "PUT_YOUR_DEVICE_UDID_HERE");
+            capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "iPhone 8 Simulator (15.2)");
+            capabilities.setCapability(MobileCapabilityType.UDID, "7969E1E8-138A-42E3-ABE1-2F4199629643");
             capabilities.setCapability(MobileCapabilityType.APP, path + "/TestApp.app.zip");
 
             server = new AppiumServiceBuilder().usingAnyFreePort().build();
@@ -53,9 +53,10 @@ public class SampleAppTest {
 
     @Test
     public void textFieldTest() {
-        // TODO initialise PageView and set "text" to its textField
+        PageView pageView = new PageView(driver);
+        pageView.setTextField("test");
 
-        // TODO assert that textField equals to "text"
+        assertEquals(pageView.getTextField(), "test", "Text field was not set");
     }
 
     @AfterClass
